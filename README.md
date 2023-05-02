@@ -26,7 +26,7 @@
 | 이름 | Github | Nickname |
 | - | - | - |
 | 박규성 | [@guesung](https://github.com/guesung)| peter |
-| | | |
+| 심효은 | [@haizel](https://github.com/haizellatte) | haizel |
 | | | |
 | | | |
 
