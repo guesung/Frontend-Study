@@ -26,9 +26,8 @@
 | 이름 | Github | Nickname |
 | - | - | - |
 | 박규성 | [@guesung](https://github.com/guesung)| peter |
-| | | |
-| | | |
-| | | |
+| 심효은 | [@haizel](https://github.com/haizellatte)| haizel |
+| 김나연 | [@kknyapple](https://github.com/kknyapple)| kknyapple |
 
 ## Time Table
 | 시간 | 내용 |
