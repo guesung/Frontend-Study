@@ -122,3 +122,12 @@
 - 요소 노드 생성 → Document.prototype.createElement
 - 텍스트 노드 생성 → Document.prototype.createTextNode
 - 노드 추가 → Node.prototype.appendChild, Node.prototype.insertBefore(newNode, childNode)
+
+## 참고
+자바스크립트 딥 다이브 39장 DOM
+
+https://tillog.netlify.app/posts/document-fragment
+
+https://blog.naver.com/kjhgngjgk/222933521160
+
+https://developer.mozilla.org/ko/docs/Web/API/Document_Object_Model/Introduction
