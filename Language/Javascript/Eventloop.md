@@ -32,9 +32,9 @@ console.log("third");
 2. console.log('first')가 실행되어 화면에 출력 -> call stack에서 제거
 3. setTimeout(function cb(){...})이 call stack에 push
 4. setTimeout(function cb(){...})이 실행되어 Web APIs로 이동 -> call stack에서 제거
-5. console.log('third')가 call stack에 push
-6. console.log('third')가 실행되어 화면에 출력 -> call stack에서 제거
-7. Web APIs에서 0ms 시간이 지난 뒤 callback으로 전달한 cb함수가 callback queue(task queue)에 추가
+5. Web APIs에서 0ms 시간이 지난 뒤 callback으로 전달한 cb함수가 callback queue(task queue)에 추가
+6. console.log('third')가 call stack에 push
+7. console.log('third')가 실행되어 화면에 출력 -> call stack에서 제거
 8. Event loop는 call stack이 비어있음을 확인하고 callback queue를 살펴봄 -> cb를 발견한 Event Loop는 call stack에 cb추가
 9. cb가 실행 -> 내부의 console.log('second')가 call stack에 추가
 10. console.log('second')가 실행되어 화면에 출력 -> call stack에서 제거
@@ -78,7 +78,10 @@ function wait3Seconds() {
 13. Event Loop는 call stack이 비어있음을 확인하고 callback queue를 살펴봄 -> cb를 발견한 Event Loop는 call stack에 cb추가
 14. cb가 실행 -> 내부의 console.log('second')가 call stack에 추가
 15. console.log('second')가 실행되어 화면에 출력 -> call stack에서 제거
-    > setTimeout의 delay인자가 `delayms후에 실행되는 것`을 보장하지는 않는다. 정확히는 `delayms후에 callback queue에 들어가는 것`을 보장
+
+> setTimeout의 delay인자가 `delayms후에 실행되는 것`을 보장하지는 않는다. 정확히는 `delayms후에 callback queue에 들어가는 것`을 보장한다.
+> wait3Seconds함수의 while문은 비동기 함수가 아니기 때문에 callback queue에 들어가지 않는다. 따라서 while문이 끝나기 전까지는 callstack에 다른 함수가 들어갈 수 없기에 다음 코드가 실행되지 않는다.
+> wait3Seconds()함수는 함수 선언식이기 때문에 선언이 호이스팅되어 위 코드에서 정상적으로 동작한다. `const wait3Seconds = () => {}`처럼 함수 표현식으로 선언하면 reference error가 발생한다.
 
 ### 출처
 
