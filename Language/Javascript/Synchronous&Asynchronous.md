@@ -7,12 +7,16 @@
 : 데이터의 요청과 결과가 한 자리에서 동시에 일어나는 것
 
 - 요청을 하면 시간이 얼마나 걸리던지 요청한 자리에서 결과가 주어져야 함
+- 장점 : 설계가 매우 간단하고 직관적이다.
+- 단점 : 결과가 주어질 때까지 아무것도 못하고 대기해야 한다.
 
 ### 비동기(Asynchronous)
 
 : 동시에 일어나지 않는 것
 
 - 요청한 결과는 동시에 일어나지 않을거라는 약속
+- 장점 : 요청에 따른 결과가 반환되는 시간 동안 다른 작업을 수행할 수 있습니다.
+- 단점 : 동기식보다 설계가 복잡합니다.
 
 ## 2. Javascript와 동기, 비동기
 
@@ -23,7 +27,7 @@ Javascript(이하 JS)는 기본적으로 동기식 언어이다 : 한 작업이 
 ### 2.1 동기 처리 - JS Engine : Memory Heap과 Call stack
 
 1. Memory Heap : 변수와 객체의 메모리 할당을 담당하는 곳
-2. Call Stack : 함수가 호출이 되면 쌓이는 곳
+2. Call Stack : 실행된 코드의 환경을 저장하는 자료구조, 함수 호출 시 Call Stack에 push됨
 
 - [Stack](https://ko.wikipedia.org/wiki/%EC%8A%A4%ED%83%9D) : LIFO(Last In First Out) 구조로 마지막에 들어온 것이 먼저 나간다.
 
@@ -59,3 +63,22 @@ Call stack은 함수가 호출되면 쌓이고, 함수가 종료되면 제거된
 ](https://velog.io/@slobber/%EB%8F%99%EA%B8%B0%EC%99%80-%EB%B9%84%EB%8F%99%EA%B8%B0%EC%9D%98-%EC%B0%A8%EC%9D%B4)
 
 [자바스크립트 - 동기(Synchronous)? 비동기(asynchronous)?](https://ljtaek2.tistory.com/142)
+
+---
+
+### Q&A
+
+1. 동기와 비동기 함수 예시로 어떤게 있나요?
+
+- synchronous method : forEach, replace
+- asynchronous method : Promise, Fetch API, Async/Await, setTieout, setInterœval
+
+코딩테스트 문제를 풀 때 forEach문을 잘못쓰면 시간복잡도가 늘어나 시간초과걸리는 것이 이러한 JS callstack의 동기처리때문인 것 같네요. 비동기처리를 하였다면 시간초과가 걸리지 않았겠지만, 대신에 변수가 변하지 않는 등 side effect가 생길 수 있겠네요.
+
+참고 : [chatGPT](https://sharegpt.com/c/vuSAAMJ)
+
+2. 동기, 비동기는 창 단위로 돌아가나요, 브라우저 단위로 돌아가나요 ?
+
+- 동일한 여러 개의 탭을 열어 놓은 경우, 각 탭은 다른 탭의 call stack과 독립적인 자체 call stack을 갖는다고 합니다.
+
+참고 : [chatGPT](https://sharegpt.com/c/teXn04Q)
