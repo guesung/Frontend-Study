@@ -4,7 +4,8 @@
 
 
 ### SSR 단계
-![](https://velog.velcdn.com/images/haizel/post/ad9e98a3-f633-4f3f-b080-85bd1f580768/image.png)
+![](https://velog.velcdn.com/images/haizel/post/ec2bcf2b-c9e8-459b-8462-e4eefd7bcd6a/image.png)
+
 
 1. 사용자가 웹 사이트에 요청을 보냅니다.
 2. Server는 즉시 렌더링 가능한 HTML 파일을 만듭니다.
@@ -20,12 +21,11 @@
 
 
 # CSR (Client Side Rendering)
-
-
 말 그대로 렌더링이 클라이언트 쪽에서 일어나는 방식입니다. 즉, 요청을 받으면 서버는 클라이언트에 HTML과 JavaScript를 보내주고, 클라이언트는 그것을 받아 렌더링을 시작합니다. 
 
 ### CSR 단계
-![](https://velog.velcdn.com/images/haizel/post/ec2bcf2b-c9e8-459b-8462-e4eefd7bcd6a/image.png)
+![](https://velog.velcdn.com/images/haizel/post/ad9e98a3-f633-4f3f-b080-85bd1f580768/image.png)
+
 
 1. 사용자가 웹 사이트에 요청을 보냅니다.
 2. CDN이 HTML 파일과 JS로 접근할 수 있는 링크를 클라이언트에게 보냅니다.
