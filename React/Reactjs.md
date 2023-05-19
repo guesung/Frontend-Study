@@ -16,7 +16,6 @@
    function handleResize() {
      console.log("I have been resized");
    }
-   window.addEventListener("resize", handleResize());
    window.addEventListener("resize", handleResize);
    ```
 
