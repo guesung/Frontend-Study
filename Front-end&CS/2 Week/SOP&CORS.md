@@ -57,9 +57,10 @@ SOP은 동일 출처(동일 프로토콜, 호스트, 포트)로만 응답을 허
 
 프리플라이트 요청은 실제 요청을 보내기 전, `OPTIONS 메서드`로 서버측에 사전 요청을 보내 해당 출처에 대한 접근 권한이 있는지 확인하는 것을 말합니다.
 
+![](https://velog.velcdn.com/images/haizel/post/c2e19e9b-adb9-4626-b49a-397d3237e0ef/image.png)
 
 ### 📍  프리플라이트 요청 동작 방법
-![](https://velog.velcdn.com/images/haizel/post/359927f5-fcd2-4c04-897f-693e25197915/image.png)
+
 
 1. 실제 요청을 보내기 전 `프리플라이트 요청`을 보내고
 2. 응답헤더에 `ccess-Control-Allow-Origin` 가 담겨 돌아오면 실제 요청을 보냅니다.
@@ -76,9 +77,7 @@ SOP은 동일 출처(동일 프로토콜, 호스트, 포트)로만 응답을 허
 ## 3. 인증 정보를 표함한 요청(Credentialed Request)
 
 요청 헤더에 인증 정보를 담아 보내는 요청을 말합니다.
-
-![](https://velog.velcdn.com/images/haizel/post/50014479-ba0f-4497-a6ce-66194557af2a/image.png)
-
+![](https://velog.velcdn.com/images/haizel/post/359927f5-fcd2-4c04-897f-693e25197915/image.png)
 
 같은 Origin에서 HTTP 통신을 하는 경우 → 요청헤더에 쿠키가 자동으로 들어가게 되지만, Origin이 다른 서버와 HTTP 통신을 할 때 요청헤더에 쿠키와 같은 인증정보를 요청헤더에 담아 보내려면 별도 설정이 필요합니다.
 
@@ -174,7 +173,8 @@ app.get("/example/:id", cors(), function (req, res, next) {
 >
 💥 **프록시(Proxy)란?**
 보안 등 다양한 이유로 직접 통신하지 못하는 두 개의 컴퓨터 사이에서 서로 통신할 수 있도록 돕는 역할을 말한다.
-<img src='blob:https://velog.io/af80d779-ec16-40a9-9b7e-cd228de290f7' width='1000'/>
+
+![](https://velog.velcdn.com/images/haizel/post/50014479-ba0f-4497-a6ce-66194557af2a/image.png)
 
 
 </aside>
