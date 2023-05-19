@@ -87,11 +87,11 @@ function wait3Seconds() {
 
 ---
 
-## Q&A
+# Q&A
 
-### 1. 브라우저와 Node.js?
+## 1. 브라우저와 Node.js?
 
-#### Node.js와 브라우저의 차이
+### Node.js와 브라우저의 차이
 
 - Node.js와 브라우저 둘 다 JS엔진을 내장하고 있기 때문에, JS라는 프로그래밍 언어를 기반으로 실행
 - 브라우저 : HTML, CSS, JS를 실행하여 웹 페이지를 화면에 띄어주는게 목적
@@ -110,13 +110,20 @@ function wait3Seconds() {
   - e.g. `console`,`Timers`,`File system`
 - 예시를 보면 브라우저, Node.js 모두 console API를 가지고 있음 -> 서버 개발 환경과 브라우저 환경에서 모두 사용 가능함을 알 수 있음
 
-#### JS엔진의 차이
+### 브라우저 별 JS엔진
 
 - Node.js와 크롬 브라우저 : V8엔진을 사용
 - FireFox : SpiderMonkey엔진 사용
-- Edge : V8 + Chakra(이전 버전)에ㄴ진 사용
+- Edge : V8 + Chakra(이전 버전)엔진 사용
 
-### Node.js
+### JS엔진?
+
+: JS 코드를 실행하는 프로그램 또는 인터프리터. 대체적으로 웹 브라우저에서 사용
+
+- 엔진에 의한 인터프리터 방식이므로 별도의 컴파일 과정 불필요 (웹 브라우저에서 즉시 해석되어 실행됨 = 런타임)
+- JS는 웹 브라우저 뿐 아니라 Node.js, Electron, React Native 등의 프로젝트와 그 밖의 다양한 곳에서 동작
+
+### Node.js?
 
 - Chrome V8 JS엔진으로 빌드 된 JS 런타임
   ###### 런타임 : 특정 언어로 만든 프로그램을 실행할 수 있는 환경
@@ -218,3 +225,4 @@ console.log("script end");
 - [ask Queue말고 다른 큐가 더 있다고?(MicroTask Queue, Animation Frames)](https://velog.io/@titu/JavaScript-Task-Queue%EB%A7%90%EA%B3%A0-%EB%8B%A4%EB%A5%B8-%ED%81%90%EA%B0%80-%EB%8D%94-%EC%9E%88%EB%8B%A4%EA%B3%A0-MicroTask-Queue-Animation-Frames-Render-Queue)
 - [애니메이션](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)
 - [비동기 작업의 원리 (JavaScript 엔진, Web API, Task Queue, Event Loop)](https://it-eldorado.tistory.com/86)
+- [JavaScript engine & 작동 원리](https://velog.io/@kirin/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EC%97%94%EC%A7%84JavaScript-engine)
