@@ -194,8 +194,7 @@ console.log("script end");
 - ###### 브라우저 환경에 따라 아래와 같은 결과가 나오지 않을 수도 있다. 이는 브라우저마다 비동기 작업을 처리하는 세부적인 구조가 다르기 때문인데, 이 글은 V8 엔진을 사용하는 Chrome 브라우저를 바탕으로 한 설명 글이다.
 
 1. console.log("script start")는 call stack에 push -> 실행 -> pop
-2. setTimeout은 call stack에 push -> 실행 : Web API를 통해 브라우저에게 setTimeout() 작업을 요청하며 callback 함수를 전달
-   - 브라우저는 이러한 타이머 작업을 별도의 스레드에게 위임
+2. setTimeout은 call stack에 push -> 실행 : 브라우저에게 setTimeout() 작업을 요청하며 callback 함수를 전달 -> Web API에 의해 처리
    - 인자로 전달된 시간이 흐르고나면 해당 타이머 작업을 처리하고 있던 스레드는 전달받았던 callback 함수를 Task Queue(MacroTask Queue)에 집어넣음 -> Event Loop에 의해 call stack이 비어있을 때까지 기다림
 3. Promise.resolve()는 call stack에 push -> 실행 : Promise.resolve()는 JS 엔진에 의해 즉시 실행되며, callback 함수는 Microtask Queue에 전달
 4. console.log("script end")는 call stack에 push -> 실행 -> pop
