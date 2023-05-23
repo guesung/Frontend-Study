@@ -9,7 +9,7 @@
 
 ## URL(Uniform Resource Locator)
 
-: 파일 식별자로, 네트워크 상에서 자원이 `어디` 있는지 위치를 알려주기 위한 규약
+: 파일 식별자로, 네트워크 상에서 자원이 `구체적으로 어디` 있는지 위치를 알려주기 위한 규약
 
 - 웹 사이트 주소 뿐 아니라 컴퓨터 네트워크 상의 자원을 모두 나타내는 표기법
 
@@ -29,6 +29,10 @@
 
 - 모든 URL(프로토콜+이름)은 URI(이름)이지만, 모든 URI가 URL은 아니다.
 - URI는 식별하고, URL은 위치를 가리킨다.
+- URL e.g. `https://google.com`
+- URI e.g. `google.com`
+  - 자원이 실제로 어디에 있는지(즉, 프로토콜이 무엇인지)를 제곻아지 않기 때문에 URL이 아님
+  - 특정 자원을 식별할 수 있으므로 URI는 맞음. URL이 되려면 프로토콜 등 위치 정보가 필요
 
 ## URL 구성
 
@@ -69,12 +73,15 @@
    <img src='https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcG02L5%2FbtrQ0l7QQxV%2Fy9ec7FsyAFBraLds4FMPH1%2Fimg.png' width=400 />
 
 4. 서버는 패킷을 받으면 패킷을 까고 HTTP 메시지를 가지고 해석
+
    <img src='https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F00rmF%2FbtrQ2flmjLG%2Fmb4L9BPK6RJtS4XknzdXj0%2Fimg.png' width=400 />
 
 5. 그 후 html 데이터를 포함한 응답 메시지를 만들어서 클라이언트에 반환
+
    <img src='https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FOnZik%2FbtrQ6IfP2sY%2F37YBeEl3TvKmT3WDEshs01%2Fimg.png' width=400/>
 
 6. 클라이언트는 응답 메시지를 받아 화면에 렌더링
+
    <img src='https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FH83DU%2FbtrQ26IsIUa%2FXQSFjL0sK1zglwsVdhvKpK%2Fimg.png' width=400/>
 
 # Reference
