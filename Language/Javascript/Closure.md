@@ -21,6 +21,7 @@
     };
     innerFunc();
   }
+  outerFunc(); // 10
   ```
 
   - 위의 코드에서 innerFunc 함수는 자신이 선언됐을 때의 환경인 outerFunc 함수의 스코프에 접근할 수 있다.
