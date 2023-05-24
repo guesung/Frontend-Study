@@ -53,5 +53,20 @@
 - 사설 IP는 어떤 네트워크 안에서만 내부적으로 사용되는 고유한 주소로, 하나의 네트워크 안에서 유일하다.
 - 같은 대역의 사설 IP에 있지 않은 경우 접속이 불가하다.
 
+## NAT
+
+### 사설망
+
+- 사설 IP를 할당해 그룹으로 묶는 방법이다.
+- 번호는 같더라도 네트워크가 다르면 전혀 다른 목적지 주소를 나타낼 수 있다. (한 네트워크 내에서는 중복되지 않고 식별되어야 한다.)
+
+### NAT
+
+![image](https://github.com/kknyapple/CS-Study/assets/72698829/bed52f48-32f2-4ddb-87c0-d1177f49742e)
+
+- 외부 인터넷 입장에서 주소 번호가 똑같은 사설 IP들을 구분해야한다.
+- NAT(Network Adress Translation) 변환으로 인터넷 주소 변역 기능을 사용한다.
+- 공유기에 연결되어 있는 컴퓨터들의 사설 IP를 받아와 공인 IP로 변환한 후 외부 인터넷으로 공인 IP 주소 정보를 보낸다.
+
 ### 참고
 - https://inpa.tistory.com/entry/JS-%F0%9F%93%9A-%EB%B9%84%EB%8F%99%EA%B8%B0%EC%B2%98%EB%A6%AC-async-await#async_/_await_%EA%B8%B0%EB%B3%B8_%EC%82%AC%EC%9A%A9%EB%B2%95
