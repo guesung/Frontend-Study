@@ -12,7 +12,7 @@ JS언어 자체가 비동기 동작을 지원하지 않는다. 비동기로 동�
 
 - Heap : 메모리 할당이 발생하는 곳
 - Call Stack : 실행된 코드의 환경을 저장하는 자료구조, 함수 호출 시 Call Stack에 push됨
-- Web APIS : DOM, AJAX, setTimeout 등 브라우저가 제공하는 API
+- Web APIS : DOM, AJAX, setTimeout 등 `웹 브라우저가 제공하는 API`
 - Callback Queue : Web APIS에서 비동기로 실행된 콜백함수들이 대기하는 곳
 - `Event Loop : Call Stack이 비어있으면 Callback Queue에서 콜백함수를 Call Stack으로 이동시키는 역할`
 
@@ -87,9 +87,9 @@ function wait3Seconds() {
 
 ---
 
-## Q&A
+# Q&A
 
-1. 브라우저와 Node.js?
+## 1. 브라우저와 Node.js?
 
 ### Node.js와 브라우저의 차이
 
@@ -110,13 +110,20 @@ function wait3Seconds() {
   - e.g. `console`,`Timers`,`File system`
 - 예시를 보면 브라우저, Node.js 모두 console API를 가지고 있음 -> 서버 개발 환경과 브라우저 환경에서 모두 사용 가능함을 알 수 있음
 
-### JS엔진의 차이
+### 브라우저 별 JS엔진
 
 - Node.js와 크롬 브라우저 : V8엔진을 사용
 - FireFox : SpiderMonkey엔진 사용
-- Edge : V8 + Chakra(이전 버전)에닌 사용
+- Edge : V8 + Chakra(이전 버전)엔진 사용
 
-## Node.js
+### JS엔진?
+
+: JS 코드를 실행하는 프로그램 또는 인터프리터. 대체적으로 웹 브라우저에서 사용
+
+- 엔진에 의한 인터프리터 방식이므로 별도의 컴파일 과정 불필요 (웹 브라우저에서 즉시 해석되어 실행됨 = 런타임)
+- JS는 웹 브라우저 뿐 아니라 Node.js, Electron, React Native 등의 프로젝트와 그 밖의 다양한 곳에서 동작
+
+### Node.js?
 
 - Chrome V8 JS엔진으로 빌드 된 JS 런타임
   ###### 런타임 : 특정 언어로 만든 프로그램을 실행할 수 있는 환경
@@ -127,8 +134,94 @@ function wait3Seconds() {
     - 이벤트 기반 : 이벤트가 발생할 때 미리 지정해둔 작업을 수행하는 방식
     - 논블로킹 I/O : 이전 작업이 완료될 때까지 멈추지 않고 다음 작업 수행. 즉 비동기 방식
 
+### 2. Web API란?
+
+- `Ajax` 요청, `setTimeout()`, 이벤트 핸들러의 등록과 같이 웹 브라우저에서 제공하는 기능
+- JS엔진의 쓰레드와 다른 쓰레드에서 이뤄짐
+- JavaScript 엔진의 call stack에서 실행된 비동기 함수가 요청하는 **비동기 작업**에 대한 정보와 **콜백 함수**를 `웹 API를 통해 브라우저에게 넘기면`, 브라우저는 이러한 요청들을 별도의 쓰레드에 위임
+- 그러면 그 쓰레드는 해당 요청이 완료되는 순간 전달받았던 콜백 함수를 JavaScript 엔진의 Task Queue에 집어넣는다.
+- e.g. setTimeout()함수 실행
+  1. JS엔진은 Web API를 통해 브라우저에게 setTimeout() 작업을 요청하면서 callback 함수를 전달
+     - JS엔진의 call stack에서는 setTimeout()함수를 즉시 pop
+  2. 브라우저는 이러한 타이머 작업을 별도의 스레드에게 위임
+  3. 인자로 전달된 시간이 흐르고 나면 해당 타이머 작업을 처리하고 있던 스레드는 전달받았던 callback 함수를 JS엔진의 Task Queue에 집어넣는다.
+
+### 3. Task Queue와 Event Loop는 어디에 있는 것인가요 ?
+
+- Task Queue : JS 엔진에 자체에 포함되어 있음
+  - Task Queue는 웹 API를 처리하고 있던 스레드로부터 전달받은 callback 함수들을 저장하고 있는 큐
+- Event Loop 또한 JS 엔진에 포함되어 있음
+  - 매 순간 call stack이 비어있는지 여부와 태스크 큐에 콜백 함수가 기다리고 있는지 여부를 확인하는 역할을 수행
+
+### 4. Task Queue 외에 MicroTask Queue, MacroTask Queue는 무엇인가요?
+
+- Macrotask Queue : 우리가 기존에 알고 있던 Taskqueue
+  - `setTimeout`, `setInterval`, `setImmediate`
+- Microtask Queue :
+
+  - `process.nextTick`, `Promise`, `async/await`, `Object.observe`, `MutationObserver`
+
+  <img src='https://res.cloudinary.com/practicaldev/image/fetch/s--05Fi8vBq--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/42eatw03fcha0e1qcrf0.gif' width=400 />
+
+#### 코드 예시
+
+```js
+// 1. 실행
+console.log("script start");
+
+// 2. task queue로 전달
+setTimeout(function () {
+  // 8. task 실행
+  console.log("setTimeout");
+}, 0);
+
+// 3. microtask queue로 전달
+Promise.resolve()
+  .then(function () {
+    // 5. microtask 실행
+    console.log("promise1");
+    // 6. microtask queue로 전달
+  })
+  .then(function () {
+    // 7. microtask 실행
+    console.log("promise2");
+  });
+
+// 4. 실행
+console.log("script end");
+```
+
+- ###### 브라우저 환경에 따라 아래와 같은 결과가 나오지 않을 수도 있다. 이는 브라우저마다 비동기 작업을 처리하는 세부적인 구조가 다르기 때문인데, 이 글은 V8 엔진을 사용하는 Chrome 브라우저를 바탕으로 한 설명 글이다.
+
+1. console.log("script start")는 call stack에 push -> 실행 -> pop
+2. setTimeout은 call stack에 push -> 실행 : 브라우저에게 setTimeout() 작업을 요청하며 callback 함수를 전달 -> Web API에 의해 처리
+   - 인자로 전달된 시간이 흐르고나면 해당 타이머 작업을 처리하고 있던 스레드는 전달받았던 callback 함수를 Task Queue(MacroTask Queue)에 집어넣음 -> Event Loop에 의해 call stack이 비어있을 때까지 기다림
+3. Promise.resolve()는 call stack에 push -> 실행 : Promise.resolve()는 JS 엔진에 의해 즉시 실행되며, callback 함수는 Microtask Queue에 전달
+4. console.log("script end")는 call stack에 push -> 실행 -> pop
+5. Microtask Queue에 있는 callback 함수`(.then(function(){~1}))`가 call stack에 push -> 실행 -> pop
+6. Microtask Queue에 있는 callback 함수`(.then(function(){~2}))`가 call stack에 push -> 실행 -> pop
+7. Microtask Queue가 비어있으므로 Event Loop는 다시 Task Queue를 확인
+8. Task Queue에 있는 callback 함수`(function(){~setTimeout})`가 call stack에 push -> 실행 -> pop
+
+- 그림으로 이해 : [링크](https://velog.io/@titu/JavaScript-Task-Queue%EB%A7%90%EA%B3%A0-%EB%8B%A4%EB%A5%B8-%ED%81%90%EA%B0%80-%EB%8D%94-%EC%9E%88%EB%8B%A4%EA%B3%A0-MicroTask-Queue-Animation-Frames-Render-Queue)
+
+- 결과
+  ```
+  script start
+  script end
+  promise1
+  promise2
+  setTimeout
+  ```
+
+### 5. async await는 Promise와 작동 방식이 다른가요?
+
 ### 출처
 
-[동기 비동기의 개념과 차이](https://dev-coco.tistory.com/46)
-[Node.js와 브라우저의 차이](https://velog.io/@gwanuuoo/node.js%EC%99%80-%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%9D%98-%EC%B0%A8%EC%9D%B4)
-[Node.js 개념 이해하기](https://hanamon.kr/nodejs-%EA%B0%9C%EB%85%90-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/)
+- [동기 비동기의 개념과 차이](https://dev-coco.tistory.com/46)
+- [Node.js와 브라우저의 차이](https://velog.io/@gwanuuoo/node.js%EC%99%80-%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%9D%98-%EC%B0%A8%EC%9D%B4)
+- [Node.js 개념 이해하기](https://hanamon.kr/nodejs-%EA%B0%9C%EB%85%90-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/)
+- [ask Queue말고 다른 큐가 더 있다고?(MicroTask Queue, Animation Frames)](https://velog.io/@titu/JavaScript-Task-Queue%EB%A7%90%EA%B3%A0-%EB%8B%A4%EB%A5%B8-%ED%81%90%EA%B0%80-%EB%8D%94-%EC%9E%88%EB%8B%A4%EA%B3%A0-MicroTask-Queue-Animation-Frames-Render-Queue)
+- [애니메이션](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)
+- [비동기 작업의 원리 (JavaScript 엔진, Web API, Task Queue, Event Loop)](https://it-eldorado.tistory.com/86)
+- [JavaScript engine & 작동 원리](https://velog.io/@kirin/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EC%97%94%EC%A7%84JavaScript-engine)

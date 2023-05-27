@@ -16,7 +16,6 @@
    function handleResize() {
      console.log("I have been resized");
    }
-   window.addEventListener("resize", handleResize());
    window.addEventListener("resize", handleResize);
    ```
 
@@ -126,14 +125,131 @@
   }
   ```
 
-## React 라이프사이클
+# 궁금증
+
+### 1. JSX가 React + XML이라고 하셨는데, XML이 무엇인가요?
+
+- XML : Extensible Markup Langauge, `데이터를 저장하고 전달`할 목적으로 만들어졌으며, 저장되는 `데이터의 구조를 기술`하기 위한 언어
+- 공유 가능한 방식으로 데이터를 정의하고 저장 가능
+    <details>
+       <summary>예시</summary>
+       <div>
+          <programming_languages>
+
+        <language>
+
+            <name>HTML</name>
+
+            <category>web</category>
+
+            <developer>W3C</developer>
+
+            <version status="working draft">5.1</version>
+
+            <priority rating="1">high</priority>
+
+        </language>
+
+        <language>
+
+            <name>CSS</name>
+
+            <category>web</category>
+
+            <developer>W3C</developer>
+
+            <version status="stable">3.0</version>
+
+            <priority rating="3">middle</priority>
+
+        </language>
+
+        <language>
+
+            <name korean="자바">Java</name>
+
+            <category>application</category>
+
+            <developer>Oracle</developer>
+
+            <version status="stable">8.91</version>
+
+            <priority rating="2">high</priority>
+
+        </language>
+
+        <language>
+
+            <name korean="파이썬">Python</name>
+
+            <category>application</category>
+
+            <developer>Python</developer>
+
+            <version status="stable">3.52</version>
+
+            <priority rating="4">middle</priority>
+
+        </language>
+
+       </programming_languages>
+
+     </div>
+  </details>
+
+### 2. 바벨은 JSX를 어떻게 해석하나요?
+
+- JSX(Javascript XML)는 JS에 XML을 추가한 확장된 문법
+- 브라우저에서 실행하기 전 코드가 번들링되는 과정에서 바벨을 사용하여 일반 JS형태의 코드로 변환됨
+
+  - 바벨(Bebel) : 자바스크립트 코드를 변환해주는 트랜스 컴파일러
+
+    1. 최신 자바스크립트 문법을 지원하지 않는 환경에서도 최신 문법을 사용할 수 있도록 지원
+    2. JSX를 JS로 변환해주는 역할 : JSX문법으로 작성된 코드를 `React.createElement함수`를 사용한 리액트 코드로 변환
+
+       - React.createElement(component, props, ...children) => ReactElement
+
+       ```js
+       React.createElement(
+         "div",
+         null,
+         React.createElement("p", null, "첫 번째 p태그"),
+         React.createElement("p", null, "두 번째 p태그")
+       );
+       ```
+
+       => 위의 React 코드는 JS에 의해 DOM element를 생성하게 되고 최종적으로 아래와 같은 html 태그가 됨
+
+       ```html
+       <div>
+         <p>첫 번째 p태그</p>
+         <p>두 번째 p태그</p>
+       </div>
+       ```
+
+  - 이와 같이 React.js는 JS로 DOM element를 생성하고 다루는 문법을 Library 형태로 추상화한 기술
+
+### 3. 그렇다면 Webpack은 무엇인가요?
+
+- Webpack : JS어플리케이션을 위한 `정적 모듈 번들러`
+  1. css, image, html, js등을 모듈로 로드해서 묶어 사용할 수 있게 해줌
+  2. 코드를 압축하는 기능을 제공
+  3. 번들링 된 파일이 너무 무거워질 경우, 다시 여러 개의 파일로 code splitting 가능
+  - 모듈(module) : 관련된 데이터와 함수들이 묶여 module을 형성하고 주로 파일 단위로 관리
+  - 번들러(bunder) : 모듈별로 나누어진 파일을 하나로 합쳐주는 역할
+
+<img src='https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbtD18P%2FbtqF0QY2s9V%2FGoAHeDjmD8R9gyMc3SfyIK%2Fimg.jpg' width=400/>
+
+- `npx create-react-app <Project명>`은 React팀에서 이러한 babel과 webpack, css후처리나 그 밖의 다양한 테스트 시스템을 모두 묶어 개발 환경을 손쉽게 구축할 수 있도록 해주는 프로젝트
 
 ### 참고
 
-[리액트를 선택하는 이유](https://itprogramming119.tistory.com/entry/React-%EB%A6%AC%EC%95%A1%ED%8A%B8%EB%A5%BC-%EC%84%A0%ED%83%9D%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0)
+- [리액트를 선택하는 이유](https://itprogramming119.tistory.com/entry/React-%EB%A6%AC%EC%95%A1%ED%8A%B8%EB%A5%BC-%EC%84%A0%ED%83%9D%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0)
 
-[리액트의 탄생배경과 핵심 개념](https://soldonii.tistory.com/100)
+- [리액트의 탄생배경과 핵심 개념](https://soldonii.tistory.com/100)
 
-[웹 동작 과정과 React의 탄생](https://velog.io/@juno7803/React%EA%B0%80-%ED%83%9C%EC%96%B4%EB%82%9C-%EB%B0%B0%EA%B2%BD)
+- [웹 동작 과정과 React의 탄생](https://velog.io/@juno7803/React%EA%B0%80-%ED%83%9C%EC%96%B4%EB%82%9C-%EB%B0%B0%EA%B2%BD)
 
-[React 공식문서](https://ko.react.dev/)
+- [React 공식문서](https://ko.react.dev/)
+- [JSX란?](https://velog.io/@hyejin4169/React-JSX%EB%9E%80)
+- [Babel / Webpack: 트랜스 컴파일러와 JS 모듈 번들러](https://ooeunz.tistory.com/133)
