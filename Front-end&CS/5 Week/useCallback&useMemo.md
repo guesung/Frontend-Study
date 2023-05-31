@@ -155,7 +155,43 @@ export const MemoizedMovie = React.memo(Movie);
 
 <br />
 
+ ## 💡 React.Memo는 HOC이다.
+
+ `React.memo`는 HOC(High-Orger-Components)로 컴포넌트를 인자로 받아서 새로운 컴포넌트를 반환하는 구조의 함수입니다. 
+
+### 공통점
+`useMemo`, `useCallback`과 마찬가지로 성능 최적화를 위해 불필요한 렌더링과 연산을 제어하는 용도로 사용됩니다.
+ 
+### 차이점
+1. `React.memo`는 HOC이고,`useMemo`, `useCallback` 는 Hook입니다.
+2. `React.memo`는 클래스형 컴포넌트, 함수형 컴포넌트 모두 사용 가능하지만, `useMemo`, `useCallback` 는 Hook이기 때문에 함수형 컴포넌트 안에서만 사용 가능합니다.
+3. `React.memo`는 props이 같을 시 컴포넌트 자체를 기억해 새로 그리지 않지만, `useMemo`, `useCallback`과 같은 Hook은 컴포넌트 자체가 아닌 렌더링 시 계산되는 함수 또는 값을 기억해 컴포넌트 내부 조직에서 실행됩니다.
+
+<br />
+
 # useMemo와 useCallback, 언제 사용하면 좋을까?
 1. 계산 비용이 많이 들고, 사용자의 입력 값이 map과 filter를 사용했을 때와 같이 렌더링 이후로도 참조적으로 동일할 가능성이 높은 경우
 2. 자식 컴포넌트에서 useEffect가 반복적으로 트리거되는 것을 막고싶을 때
 3. 크기가 큰 리액트 트리 구조 내에서 부모가 리렌더링 되었을 때, 다른 렌더링 전파를 막고싶을 때
+
+<br />
+
+# ✍️ Summary
+
+### React의 렌더링 시점
+- 자신의 state가 변경될 때
+- 부모 컴포넌트로부터 전달받은 props가 변경될 때
+- 부모 컴포넌트가 리렌더링될 때
+- `forceUpdate` 함수가 실행될 때
+
+### UseEffect : Side Effect을 처리할 때
+모든 컴포넌트가 렌더링된 후 상태변화, 구독, 타이머, 로깅 및 기타 side Effect을 처리한다.
+
+### useCallback : 함수 재생성을 방지
+Memoization된 **`함수`** 를 반환하는 함수로, 특정 함수를 새로 만들지 않고 재사용하고 싶을 때 사용한다.
+
+### useMemo : 함수 연산량이 많을 때 이전 결과값을 재사용
+useMemo는 Memoization된 **`값`** 을 반환하는 함수이다.
+
+### React.Memo : 같은 props로 렌더링이 자주 일어날 때 이전 값을 재사용
+props가 같다면, Memoizing된 내용을 재사용하는 함수로, 성능 최적화를 위해 불필요한 렌더링 또는 연산을 제어하는 용도로 사용된다.
