@@ -29,10 +29,10 @@
 ### 1. 함수 호출
 
 - 기본적으로 this는 전역객체(global/window)에 바인딩 됨
-- 내부함수는 일반 함수, 메소드, 콜백함수 어디에서 선언되었든 관계없이 전역객체에 bind
 - \# 내부 함수 : 함수 안에 선언한 함수
+- 논리적으로 이상해 보이나, JS 개발자 중 한 명인 더글라스 크락포드조차 이 점은 설계상의 오류라고 지적
 
-  - 내부 함수 e.g.
+  - 내부 함수 e.g. 일반 함수
 
   ```js
   function foo() {
@@ -45,7 +45,7 @@
   foo();
   ```
 
-  - callback함수, 메소드의 내부 함수 e.g.
+  - 내부 함수 e.g. callback함수, 메소드의 내부 함수
 
   ```js
   var value = 1;
@@ -120,9 +120,62 @@
   - 자신만의 스코프 생성 O
   - 위에서 다룬 것처럼, 내부 함수(-> 전역 객체)냐, 객체의 메소드(-> 생성할 객체)냐, 생성자 함수(->생성할 인스턴스)에 따라 달라짐
 - 화살표 함수에서의 this : 함수를 선언할 때 this에 바인딩할 객체가 정적으로 결정
+
   - this 바인딩 객체 결정 방식은 함수의 상위 스코프를 결정하는 방식인 렉시컬 스코프와 유사
   - call, apply, bind 메소드로 변경 불가
   - 자신만의 스코프 생성 X
+
+  ```js
+  const cat = {
+    name: "meow",
+    foo1: function () {
+      const foo2 = () => {
+        console.log(this.name);
+      };
+      foo2();
+    },
+  };
+
+  cat.foo1(); // meow
+  ```
+
+  - 일반 함수에서는 foo2의 this는 전역 객체를 가리키지만, 화살표 함수에서는 foo1의 this를 가리킴
+
+## 이럴 때는 화살표 함수를 쓰면 안돼요
+
+1. 메소드 : callName메소드으l this는 자신을 호출한 객체 cat이 아니라, 함수 선언 시점의 상위 스코프인 전역 객체를 가리키게 됨
+
+   ```js
+   const cat = {
+     name: 'meow';
+     callName: () => console.log(this.name);
+   }
+
+   cat.callName();	// undefined
+   ```
+
+2. 생성자 : 생성자 함수로 사용 불가
+
+   ```js
+   const Foo = () => {};
+   const foo = new Foo(); // TypeError: Foo is not a constructor
+   ```
+
+3. addEventLinster()의 콜백함수 : this에 해당 이벤트 리스너가 호출된 엘리먼트가 바인딩되도록 정의되어 있음. 이미 this의 값이 지정되어있는 콜백함수의 경우, 화살표 함수를 사용하면 기존 바인딩이 사라지고 상위 스코프(여기서는 전역 객체)가 바인딩 되기에 의도한대로 동작하지 않을 수 있음
+
+   ```js
+   const button = document.getElementById("myButton");
+
+   button.addEventListener("click", () => {
+     console.log(this); // Window
+     this.innerHTML = "clicked";
+   });
+
+   button.addEventListener("click", function () {
+     console.log(this); // button 엘리먼트
+     this.innerHTML = "clicked";
+   });
+   ```
 
 # Q&A
 
@@ -132,6 +185,7 @@
 
 - ES6에서 새로 추가된 내용. 기존 함수 표현식과 비교하면 간결한 표현으로 간단하게 사용 가능
 - 화살표 함수는 함수 표현식으로밖에 선언 못함
+- 무조건 익명함수로만 사용 가능(익명함수로 선언하여 변수에 할당)
 
 ```js
 function fun() { // 일반함수
@@ -232,3 +286,4 @@ fun(1, 2, 3);
 
 - [함수 표현식&선언식, 화살표 함수(arrow function)](https://any-ting.tistory.com/129)
 - [생성자 함수](https://ko.javascript.info/constructor-new)
+- [Javascript 화살표 함수와 this 바인딩](https://velog.io/@padoling/JavaScript-%ED%99%94%EC%82%B4%ED%91%9C-%ED%95%A8%EC%88%98%EC%99%80-this-%EB%B0%94%EC%9D%B8%EB%94%A9)
