@@ -10,28 +10,31 @@ Next.js 공식 홈페이지에서도 가장 먼저 강조하는 것이 'Hybrid s
 ## Next.js의 렌더링(Hydrate)
 
 - 모든 페이지를 서버 측에서 미리 렌더링 -> 해당 페이지에 필요한 최소한의 JS코드와 연결
-- HTML이 생성되는 시점`
+- HTML이 생성되는 시점
   1. SSG(Static Site Generation) : 빌드 타임에 HTML에 생성되어 매 요청마다 이를 재사용
      - 정적인 페이지를 미리 생성하여 SEO에 유리
      - 블로그, 포트폴링, 메뉴얼 등 데이터가 바뀌지 않는 데이터에 적합
   2. SSR(Server Side Rendering) : 매 요청마다 HTML을 생성
-     - 유저의 요청마다 데이터가 변경될 수 있는 맞춤 추천리스트, 장바구니 페이지 등에 적합
+     - 유저의 요청마다 데이터가 변경될 수 있는 맞춤 추천 리스트, 장바구니 페이지 등에 적합
 
 ### Hydration
 
 : Server Side단에서 렌더링 된 정적 페이지와 번들링된 js파일(Webpack)을 클라이언트에게 보낸 뒤, 클라이언트 단에서 HTML 코드와 React인 js 코드를 서로 매칭시키는 과정
 
 - React는 CSR(Client-side Rendering)로, 처음에 브라우저가 빈 HTML을 파일을 받아 아무것도 보여주지 않다가, 사용자의 기기에서 `렌더링이 진행되어 한 번에 화면을 보여줌`
+
   <img src='https://nextjs.org/static/images/learn/foundations/client-side-rendering.png' width=400 />
+
 - Next.js는 서버 측에서 모든 페이지를 미리 렌더링하여 HTML을 생성하고, 브라우저에 전달 -> 해당 페이지에 필요한 최소한의 JS코드와 연결. 이 과정이 바로 hydration
+
   <img src='https://nextjs.org/static/images/learn/foundations/pre-rendering.png' width=400>
 
 ## Next.js의 기능
 
-1. hot reloading : 개발 중 저장되는 코드는 자도응로 새로고침
+1. hot reloading : 개발 중 저장되는 코드는 자동으로 새로고침
 2. automatic routing : pages폴더에 있는 파일은 해당 파일 이름으로 라우팅
 
-- public폴더도 pages폴더와 동일하게 라우팅 가능
+   - public폴더도 pages폴더와 동일하게 라우팅 가능
 
 3. single file components : style jsx를 사용함으로 컴포넌트 내부에 해당 컴포넌트만 스코프를 가지는 css만들 수 있음
 
@@ -77,7 +80,7 @@ Next.js 공식 홈페이지에서도 가장 먼저 강조하는 것이 'Hybrid s
    }
    ```
 
-5. Server landing : SSR(Server Side Rendering) 제공
+5. Server landing : SSR(Server Side Rendering), SSG(Static Site Genration) 제공
 
    - `getServerSideProps` : 페이지가 요청될 때마다 서버에서 실행
    - `getStaticProps` : 페이지가 요청될 때마다 서버에서 실행되는 것이 아닌, 빌드 시점에 한 번만 실행되어 생성된 HTML에 포함
@@ -85,7 +88,13 @@ Next.js 공식 홈페이지에서도 가장 먼저 강조하는 것이 'Hybrid s
 
 6. code splitting : 내가 원하는 페이지에서 원하는 JS와 라이브러리 렌더링
 
-7. typescript : typescript를 지원
+   - JS를 각 경로에 대해 별도의 청크로 분할
+   - 사용자가 애플리케이션을 로드하면 Next.js는 초기 경로에 필요한 코드만 전송
+   - 각 가져오기를 별도의 청크로 로드할 수 있는 동적 import를 지원
+     - `dynamic(import(".."));`
+   - 동적 가져올 때, dynamic()함수에 추가 인수를 제공하여 로드 표시기 제공할 수 있음
+
+7. typescript : 기본적으로 typescript를 지원
 
 8. \_document.tsx : meta 태그 정의하거나, 전체 페이지 관리
    - console은 서버에서만 보이고 클라이언트에서는 안보임
