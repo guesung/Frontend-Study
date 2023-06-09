@@ -145,6 +145,8 @@ function App() {
 
 이렇게 바벨을 사용하여 JavaScript로 변환하면, React에서 작성한 UI 구성 요소를 일반적인 JavaScript 코드로 컴파일하여 브라우저에서 실행할 수 있습니다.
 
+<br />
+
 ## 💡 `.js` vs `.jsx` ?
 
 ### `.js`  Side
