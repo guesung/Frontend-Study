@@ -44,11 +44,13 @@ writable이 false로, 읽기 전용 객체에 쓰는 것이 불가능합니다. 
 ### 4. this 포인터가 가리키는 값이 null, undefind인 경우 전역 객체로 반환되지 않는다.
 
 this의 결과가 null, undefind인 경우, 전역객체 window를 반환하지 않고 그대로 반환하게 됩니다.
+
 <img src="https://velog.velcdn.com/images/haizel/post/1b494f1c-e785-48a8-81e4-21d673385643/image.png" />
 
 ### 5. 예약어를 사용할 수 없다.
 
 예약된 키워드의 이름으로 변수 또는 함수를 생성할 수 없습니다.
+
 <img src="https://velog.velcdn.com/images/haizel/post/c0acc606-29cd-4017-b91f-5dfb35b45b1b/image.png" />
 
 <br />
@@ -85,7 +87,8 @@ React에서 strict 모드는 어떤 이점이 있을까?
 
 비동기 React 애플리케이션에서 특정 생명주기 메서드들은 안전하지 않습니다. 
 `Strict Mode`가 활성화되면, React는 안전하지 않은 생명 주기 메서드를 사용하는 모든 클래스 컴포넌트 목록을 정리해 다음과 같이 컴포넌트에 대한 정보가 담긴 경고 로그를 출력합니다.
-<img src="https://velog.velcdn.com/images/haizel/post/8c807cb8-57b1-4d23-830f-2376b701d255/image.png" width="500" />
+
+<img src="https://velog.velcdn.com/images/haizel/post/8c807cb8-57b1-4d23-830f-2376b701d255/image.png"  width="400" />
 
 ### 2. 레거시 문자열 ref 사용에 대한 경고
 
@@ -108,4 +111,5 @@ React에서 strict 모드는 어떤 이점이 있을까?
 ### 5. 레거시 context API 검사
 
 레거시 context API는 오류가 발생하기 쉬워 이후 릴리즈에서 삭제될 예정입니다. 모든 16.x 버전에서 여전히 돌아가지만, Strict 모드에서는 아래와 같은 경고 메시지를 노출합니다.
-<img src="https://velog.velcdn.com/images/haizel/post/e300a777-ed76-4ed9-bdd8-4920d3e8261a/image.png"/>
+
+<img src="https://velog.velcdn.com/images/haizel/post/e300a777-ed76-4ed9-bdd8-4920d3e8261a/image.png"  width="400"/>
