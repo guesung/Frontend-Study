@@ -51,7 +51,7 @@ range[Symbol.iterator] = function () {
   // 2) 새로운 키:밸류 를 추가한다. 키는 변수형태, 밸류는 함수이다.
 
   return {
-    // 객체를 리턴한다. 그런데 좀 특벽할 형태의 객체
+    // 객체를 리턴한다. 그런데 좀 특별할 형태의 객체
     current: this.from,
     last: this.to,
 
@@ -76,7 +76,33 @@ range[Symbol.iterator] = function () {
 - iterable 객체 : range. Symbol.iterator메서드를 가지고 있기 때문에
 - iterator 객체 : Symbol.iterator() 메서드를 return한 객체
 
-<img src='https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcxQYic%2FbtrgWafaLUA%2F8cmz5tmpGwjInRhbroEFk1%2Fimg.png' width=400 />
+    <img src='https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcxQYic%2FbtrgWafaLUA%2F8cmz5tmpGwjInRhbroEFk1%2Fimg.png' width=400 />
+
+## 유사배열 vs 이터러블
+
+- 이터러블 : 위에서 설명한 것과 같이 메서드 `Symbol.iterator`가 구현된 객체
+
+  - e.g. Array.from()을 쓰면 이터러블이나 유사 배열을 받아 '진짜' Array를 만들어줌
+
+  ```js
+  let arrayLike = {
+    //유사배열
+    0: "Hello",
+    1: "World",
+    length: 2,
+  };
+  Array.from(arrayLike); // ["Hello", "World"]
+
+  let arr = Array.from(arrayLike); // ["Hello", "World"] 배열이 됨으로서 이터러블 객체도 된다.
+  for (let item of arr) {
+  }
+  // Hello
+  // World
+  ```
+
+  - e.g. 문자열, Map, Set, DOM 노드 리스트 등은 모두 이터러블 작업이 마쳐진 유사배열
+
+- 유사배열 : 인덱스와 length 프로퍼티가 있어서 배열처럼 보이는 객체
 
 # 참고
 
