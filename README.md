@@ -1,4 +1,4 @@
-# CS-Study
+# Frontend-Study
 
 ## 운영 방식
 
