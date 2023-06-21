@@ -31,7 +31,7 @@
 | ------ | -------------------------------------------------------- | -------- |
 | 박규성 | [@guesung](https://github.com/guesung)                   | peter    |
 | 강주혁 | [@kangju2000](https://github.com/kangju2000)             |          |
-| 민세림 | [@anonymousRecords](https://github.com/anonymousRecords) |          |
+| 민세림 | [@anonymousRecords](https://github.com/anonymousRecords) | chapdo    |
 
 ## Time Table
 
