@@ -108,6 +108,8 @@
 <br />
 <br />
 
+# SPA
+
 # 궁금증
 
 ### 1. CSR인 React에서도 페이지 이동할 때 `router.push('/~')`를 사용하는데, 이때도 SSR과 같이 새로운 HTML 파일을 받아오는 것인가?
@@ -119,16 +121,18 @@ NO. CSR은 빈 HTML`(\<div id='app'></div>)`에 JavaScript를 이용해 `동적�
 A : 동적으로 페이지를 생성하느냐, 정적으로 생성하느냐가 SSR과 SSG의 차이
 
 - SSG
+
   <img src='https://velog.velcdn.com/images%2Flongroadhome%2Fpost%2F9137471c-0491-41c2-bd59-f9d1cd0a2811%2Fadfasdf.png' width=400/>
 
-  1. 빌드를 진행할 때 pages폴더에서 각 페이지에 대해 각각의 문서를 생성해서(build-time 때) static한 파일로 생성 -> CDN에 캐시
+  1. 빌드를 진행할 때 pages폴더에서 각 페이지에 대해 각각의 문서를 생성해서 static한 파일로 생성 -> CDN에 캐시
   2. 해당 페이지에 대한 요청이 발생하게 되면, 이 페이지들을 재생성하는 것이 아니라 이미 생성된 페이지를 반환
 
-  - CSR보다 응답속도가 빠르고, Next.js에서도 SSG형태로 사용하는 것을 지향
-  - `마케팅 페이지`, `블로그 게시글`, `제품의 목록`과 같이 정적 생성된 정보를 각 요청에 동일한 정보를 반환하는 경우 사용
-  - Next.js에서 사용하는 방법 : `getStaticProps`(API와 같은 외부 데이터 받아올 때), `getStaticPaths`(동적 라우팅으로 페이지 생성할 때)
+     - CSR보다 응답속도가 빠르고, Next.js에서도 SSG형태로 사용하는 것을 지향
+     - `마케팅 페이지`, `블로그 게시글`, `제품의 목록`과 같이 정적 생성된 정보를 각 요청에 동일한 정보를 반환하는 경우 사용
+     - Next.js에서 사용하는 방법 : `getStaticProps`(API와 같은 외부 데이터 받아올 때), `getStaticPaths`(동적 라우팅으로 페이지 생성할 때)
 
 - SSR
+
   <img src='https://velog.velcdn.com/images%2Flongroadhome%2Fpost%2F2b082fb2-ca4f-487d-a3d7-d6211e2c14f3%2Ffsfsdbsdfse.png' width=400 />
 
   - 요청이 들어올 때마다 페이지를 생성해서 반환 -> 응답속도가 느림
@@ -139,20 +143,24 @@ A : 동적으로 페이지를 생성하느냐, 정적으로 생성하느냐가 S
 ### 4. Next.js에서 사용하는 것은 그럼 SSG인가요, SSR인가요?
 
 - Next.js에서 기본 default값으로 적용되는 것은 SSG
+- Next.js에서 SSR을 사용하려면 `getServerSideProps`를 사용해야 한다.
 
 ### 5. Next.js에서는 그럼 CSR을 사용하지 않나요?
 
 A : NO
 
-- SSG 방식은 CSR을 대체하는 개념이 아니다. 기본적으로 SPA는 CSR방식이 기본 전제이다.
-<!-- - Next에서 \<Link /> 태그를 사용하면 별다른 새로고침 없이 이동하는 것을 확인할 수 있다. 이는 CSR방식이 적용되어 있는 것이다.  --> -> 확인 필요
-- Next에서는 useEffect를 통해 데이터를 CSR을 구현할 수 있다. 하지만 Next.js에서 CSR을 구현하려면 useEffect보다는 SWR훅을 사용하는 것을 권장한다. [SWR](https://nextjs.org/docs/pages/building-your-application/data-fetching/client-side#client-side-data-fetching-with-useeffect)을 사용하면 자동으로 캐싱하고 오래된 데이터를 갱신할 수 있다.
+- Next.js는 SSR의 장점과 CSR의 장점을 적절히 섞은 좋은 성능의 앱을 만들기 위해 사용
+- Next.js의 CSR 예시 : \<Link> 태그를 이용한 페이지 이동, `useEffect`, `useState`
+- 즉, Next.js는 최초 페이지만 SSR, 그 후 Link를 토한 이동은 CSR이다.
 
-### 6. 그렇다면, CSR = SPA, SSR = MPA라고 이해하면 되나요?
+https://theodorusclarence.com/blog/nextjs-fetch-method
 
-A : NO.
+이어서 작성
 
-- Next.js에서는 MPA와 SPA, CSR과 SSR 모두 사용할 수 있다.
+### 6. Next.js에서 CSR, SSR, SSG 모두 사용할 수 있는건가요?
+
+A : YES
+
 - CSR 코드 예시 : useEffect
 
   ```js
@@ -186,9 +194,10 @@ A : NO.
   export default About;
   ```
 
-  - CSR방식으로 useEffect를 사용하여 컴포넌트가 마운트 되었을 때 데이터를 가져오고, 가져온 데이터를 화면에 뿌려줌
+  - CSR방식으로 `useEffect를` 사용하여 컴포넌트가 마운트 되었을 때 데이터를 가져오고, 가져온 데이터를 화면에 뿌려줌
   - 해당 페이지에 진입하는 순간, useState에서 선언한 list변수에 아무런 데이터가 담겨있지 않음
   - 때문에 해당 list의 길이가 0이라는 정보가 잠깐 렌더링 되었다가, useEffect를 통해 데이터를 받아오게 되면 화면에 list를 띄움
+
     <img src='https://velog.velcdn.com/images%2Flongroadhome%2Fpost%2Fc73c4b35-d9ed-4341-a5cd-e65e125311b3%2Fbbbbbb.PNG' width=400/>
 
 - SSG 코드 예시 : getStaticProps
@@ -222,7 +231,7 @@ A : NO.
 
   - SSG방식으로, 요청에 따라 그때마다 HTML 문서를 생성할 필요 없이 첫 요청에 하나의 정적 HTML 문서를 생성 후 그 이후의 요청엔 계속 동일한 문서 반환
   - 뿌려준 데이터 역시 미리 서버에서 처리하여 완성된 정적 HTML문서를 반환한다면 SEO 적용에 용이
-  - `console.log(data[1])`은 chrom console창이 아니라, IDE 서버 console창에서 출력 됨 (`getStaticProps`는 빌드 시에 실행되기 때문에)
+  - `console.log(data[1])`은 chrome console창이 아니라, IDE 서버 console창에서 출력 됨 (`getStaticProps`는 빌드 시에 실행되기 때문에)
 
     <img src='https://velog.velcdn.com/images%2Flongroadhome%2Fpost%2F1aa96f5b-a02e-45fd-9d8c-5df61edd8047%2Fadfsdfsdfsdfds.PNG' width=400/>
 
@@ -262,7 +271,7 @@ A : NO.
   };
   ```
 
-  - SSR방식으로 getServerSideProps를 사용하여 서버 사이드에서 1차적으로 HTML을 파싱할 때 데이터를 가져와서 조립해서 전달
+  - SSR방식으로 `getServerSideProps를` 사용하여 서버 사이드에서 1차적으로 HTML을 파싱할 때 데이터를 가져와서 조립해서 전달
   - ctx라는 인자를 받는데, 이는 context의 약자로, Next.js에서 제공하는 Router객체와 비슷한 역할을 한다.
 
 - SSG 코드 예시 2 : getStaticPaths (Dynamic Routing)
@@ -320,9 +329,9 @@ A : NO.
   1. getStaticProps로 getServerSideProps와 동일한 방식으로 데이터를 가져온다. 하지만, static이기 때문에 매 요청마다 렌더링되지 않고 가져온 데이터로 서버에 정적 HTML문서를 생성할 것이다.
   2. getStaticPaths는 Dynamic 경로를 지정해주었다.
 
-- 폴더 구조 살펴보기
+- 배포 모드 폴더 구조 살펴보기
 
-  - 개발모드에서는 빌드가 되지 않는다. (빌드는 배포모드에서만 이뤄짐)
+  - 개발 모드에서는 빌드가 되지 않는다. (빌드는 배포모드에서만 이뤄짐)
   - 배포 모드 폴더 구조
     <img src='https://velog.velcdn.com/images%2Flongroadhome%2Fpost%2F50a265d7-33ba-472f-b5ef-519ab6e64c42%2F111.PNG' width=400 />
 
@@ -338,7 +347,7 @@ A : NO.
 
 - Next는 자체적으로 서버를 가지고 있다. 내부적으로는 Node.js환경에서 구동되는 서버일 확률이 높다. (명확한 문서 X)
 - Next에서 pages폴더의 영역은 FE와 BE, 즉 서버와 공유하고 있는 공간이라 생각하면 된다.
-- 해당 폴더의 파일에서 export하는 getServerSideProps와 getStaticProps 등의 함수는 Next으 ㅣ서버로 전달되어 주어진 임무를 수행하고 이를 다시 컴포넌트 단에 결과를 반환해주는 것이다.
+- 해당 폴더의 파일에서 export하는 getServerSideProps와 getStaticProps 등의 함수는 Next의 ㄴ서버로 전달되어 주어진 임무를 수행하고 이를 다시 컴포넌트 단에 결과를 반환해주는 것이다.
 - 순수 React에서는 해당 영역이 온전히 컴포넌트, 즉 프론트의 영역이기 때문에 저렇게 함수를 선언해봐야 서버에 전달되지 않는다.
 
 ### 8. 그럼, 정리하자면 언제 무얼 쓰면 돼요?
@@ -358,6 +367,10 @@ A : \<Link href='~'>\</Link>를 통해 이뤄진다.
   - React에서는 다른 페이지에서 오류가 발생하면 전체 페이지에 `error`메시지가 뜨지만, Next에서는 해당 페이지만 `error`메시지가 뜨고, 다른 페이지는 정상적으로 작동하는 현상
 - Next.js의 프로덕션 빌드에서 Link가 브라우저의 화면(뷰포트)에 나타날 때마다, 사용자가 링크를 클릭하기 전에 Next.js가 백그라운드에서 연결된 페이지 코드를 미리 로드하여 페이지 전환이 거의 즉각저긍로 이뤄짐
 - `router.push()`는 \<a>태그를 만들지 않기 때문에 크롤링이되지 않아 SEO에 불리
+
+### 8. 첫 페이지 이후로 CSR방식으로 페이지 이동이 이뤄진다고 하셨는데, 그럼 SSG방식으로 구현한 페이지는 이미 서버에서 만들어 진 것인데 어떻게 되나요?
+
+- 해결 X
 
 # **📎 참고문서**
 
